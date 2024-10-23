@@ -12,5 +12,9 @@ router.post('/', authenticateToken, (req, res) => {
         return res.status(400).json({ error: 'Invalid order data' });
     }
 
-    
+    db.serialize(() => [
+        
+    ])
 })
+
+module.exports = router;
