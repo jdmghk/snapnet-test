@@ -109,17 +109,6 @@ npm test
 └── app.js
 ```
 
-## Error Handling
-
-The API uses standard HTTP status codes:
-- 200: Success
-- 201: Created
-- 400: Bad Request
-- 401: Unauthorized
-- 403: Forbidden
-- 404: Not Found
-- 500: Server Error
-
 ## Security Features
 
 - JWT Authentication
