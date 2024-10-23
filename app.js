@@ -19,11 +19,11 @@ app.use(express.urlencoded({
 }));
 
 app.use((req, res, next) => {
-    res.setHeader('X-Content-Type-Options', 'nosniff');
-    res.setHeader('X-Frame-Options', 'DENY');
-    res.setHeader('X-XSS-Protection', '1; mode=block');
-    next();
-  });
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
 
 app.use((req, res, next)=> {
     console.log(req.path, req.method)
@@ -31,10 +31,7 @@ app.use((req, res, next)=> {
 });
 
 app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/products', require('./routes/products'));
-// app.use('/api/ticket', require('./routes/ticketRoutes'));
-// app.use('/api/paystack', require('./routes/paystackRoutes'));
-// app.use('/', require('./routes/slugRoutes'));
+app.use('/api/products', require('./routes/products'));
 
 
 //Server

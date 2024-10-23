@@ -33,4 +33,59 @@ router.get('/', (req, res) => {
     });
 });
 
-// Add product (admin only)
+// Add product
+router.post('/', authenticateToken, (req, res) => {
+    const { name, description, price, quantity, image_url } = req.body;
+
+    if(!name || !price || !quantity || !image_url) {
+        return res.status(400).json({ error: 'Required fields missing' });
+    }
+
+    const sql = `INSERT INTO products (name, description,price, quantity, image_url) VALUES(?, ?, ?, ?, ?)`;
+
+    db.run(sql, [name, description, price, quantity, image_url], function(err) {
+        if (err) {
+            return res.status(500).json({ error: 'Server error '});
+        }
+        res.status(201).json({ id: this.lastID });
+    });
+});
+
+//Update product 
+router.put('/:id', authenticateToken, (req, res) => {
+    const { name, description, price, quantity, image_url } = req.body;
+    const { id } = req.params;
+
+    const sql = `UPDATE products 
+                SET name?, description=?, price=?, quantity=?, image_url=?
+                WHERE id=?`;
+
+    db.run(sql, [name, description, price, quantity, image_url, id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: 'Server error'});
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json({ message: 'Product updated'})
+    });
+});
+
+
+
+//Delete product
+router.delete('/:id', authenticateToken, (req, res) => {
+    const { id } = req.params;
+
+    db.run(`DELETE FROM products WHERE id=?`, [id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: 'Server error' });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error:'Product not found' });
+        }
+        res.json({ message: 'Product deleted' });
+    });
+});
+
+module.exports = router;
