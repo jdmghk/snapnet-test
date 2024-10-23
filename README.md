@@ -56,8 +56,8 @@ A secure and scalable RESTful API for an e-commerce platform built with Node.js,
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/snapnet-ecommerce-test.git
-cd snapnet-ecommerce-test
+git clone https://github.com/your-username/snapnet-test.git
+cd snapnet-test
 ```
 
 2. Install dependencies:
